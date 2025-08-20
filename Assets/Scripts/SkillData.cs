@@ -1,9 +1,9 @@
 using UnityEngine;
 public enum SkillAttribute
 {
-    참격, // Slash
-    관통, // Pierce
-    타격  // Blunt
+    Slash, // Slash
+    Pierce, // Pierce
+    Blunt  // Blunt
 }
 
 
@@ -11,6 +11,8 @@ public enum SkillAttribute
 public class SkillData
 {
     public string skillName;
-    public int power;
+    public int power; // 기본위력
+    public int coinBonusPower; // 코인 보너스 위력
+    public int coinCount; // 코인 개수
     public SkillAttribute attribute;
 }

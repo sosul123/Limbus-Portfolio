@@ -137,6 +137,9 @@ TextureImporter:
   - first:
       213: -3262842094731372141
     second: Male Skin1_44
+  - first:
+      213: 7025562262800214081
+    second: Male Skin1_45
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -274,10 +277,10 @@ TextureImporter:
       name: Male Skin1_0
       rect:
         serializedVersion: 2
-        x: 30
-        y: 383
-        width: 19
-        height: 45
+        x: 26
+        y: 382
+        width: 24
+        height: 49
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -296,10 +299,10 @@ TextureImporter:
       name: Male Skin1_1
       rect:
         serializedVersion: 2
-        x: 110
-        y: 383
-        width: 19
-        height: 45
+        x: 106
+        y: 382
+        width: 24
+        height: 49
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -318,10 +321,10 @@ TextureImporter:
       name: Male Skin1_2
       rect:
         serializedVersion: 2
-        x: 190
-        y: 383
-        width: 19
-        height: 46
+        x: 186
+        y: 382
+        width: 24
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -340,10 +343,10 @@ TextureImporter:
       name: Male Skin1_3
       rect:
         serializedVersion: 2
-        x: 270
-        y: 383
-        width: 19
-        height: 46
+        x: 266
+        y: 382
+        width: 24
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -362,10 +365,10 @@ TextureImporter:
       name: Male Skin1_4
       rect:
         serializedVersion: 2
-        x: 350
-        y: 383
-        width: 19
-        height: 46
+        x: 346
+        y: 382
+        width: 24
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -384,10 +387,10 @@ TextureImporter:
       name: Male Skin1_5
       rect:
         serializedVersion: 2
-        x: 30
-        y: 319
-        width: 21
-        height: 45
+        x: 22
+        y: 318
+        width: 30
+        height: 49
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -406,10 +409,10 @@ TextureImporter:
       name: Male Skin1_6
       rect:
         serializedVersion: 2
-        x: 111
-        y: 319
-        width: 18
-        height: 45
+        x: 103
+        y: 318
+        width: 27
+        height: 49
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -428,10 +431,10 @@ TextureImporter:
       name: Male Skin1_7
       rect:
         serializedVersion: 2
-        x: 192
-        y: 319
-        width: 17
-        height: 46
+        x: 184
+        y: 318
+        width: 26
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -450,10 +453,10 @@ TextureImporter:
       name: Male Skin1_8
       rect:
         serializedVersion: 2
-        x: 271
-        y: 319
-        width: 18
-        height: 46
+        x: 266
+        y: 318
+        width: 24
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -472,10 +475,10 @@ TextureImporter:
       name: Male Skin1_9
       rect:
         serializedVersion: 2
-        x: 350
-        y: 319
-        width: 20
-        height: 45
+        x: 347
+        y: 318
+        width: 24
+        height: 49
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -494,10 +497,10 @@ TextureImporter:
       name: Male Skin1_10
       rect:
         serializedVersion: 2
-        x: 431
-        y: 319
-        width: 18
-        height: 45
+        x: 426
+        y: 318
+        width: 24
+        height: 49
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -516,10 +519,10 @@ TextureImporter:
       name: Male Skin1_11
       rect:
         serializedVersion: 2
-        x: 511
-        y: 319
-        width: 18
-        height: 46
+        x: 506
+        y: 318
+        width: 24
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -538,10 +541,10 @@ TextureImporter:
       name: Male Skin1_12
       rect:
         serializedVersion: 2
-        x: 591
-        y: 319
-        width: 18
-        height: 46
+        x: 584
+        y: 318
+        width: 26
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -560,10 +563,10 @@ TextureImporter:
       name: Male Skin1_13
       rect:
         serializedVersion: 2
-        x: 27
-        y: 255
-        width: 28
-        height: 46
+        x: 15
+        y: 254
+        width: 41
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -582,10 +585,10 @@ TextureImporter:
       name: Male Skin1_14
       rect:
         serializedVersion: 2
-        x: 111
-        y: 255
-        width: 21
-        height: 45
+        x: 98
+        y: 254
+        width: 35
+        height: 49
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -604,10 +607,10 @@ TextureImporter:
       name: Male Skin1_15
       rect:
         serializedVersion: 2
-        x: 191
-        y: 255
-        width: 17
-        height: 46
+        x: 181
+        y: 254
+        width: 28
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -626,10 +629,10 @@ TextureImporter:
       name: Male Skin1_16
       rect:
         serializedVersion: 2
-        x: 270
-        y: 255
-        width: 18
-        height: 46
+        x: 264
+        y: 254
+        width: 25
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -648,10 +651,10 @@ TextureImporter:
       name: Male Skin1_17
       rect:
         serializedVersion: 2
-        x: 347
-        y: 255
-        width: 26
-        height: 46
+        x: 346
+        y: 254
+        width: 28
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -670,10 +673,10 @@ TextureImporter:
       name: Male Skin1_18
       rect:
         serializedVersion: 2
-        x: 429
-        y: 255
-        width: 19
-        height: 45
+        x: 425
+        y: 254
+        width: 24
+        height: 49
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -692,10 +695,10 @@ TextureImporter:
       name: Male Skin1_19
       rect:
         serializedVersion: 2
-        x: 510
-        y: 255
-        width: 20
-        height: 46
+        x: 503
+        y: 254
+        width: 28
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -714,10 +717,10 @@ TextureImporter:
       name: Male Skin1_20
       rect:
         serializedVersion: 2
-        x: 589
-        y: 256
-        width: 22
-        height: 45
+        x: 579
+        y: 255
+        width: 33
+        height: 49
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -736,10 +739,10 @@ TextureImporter:
       name: Male Skin1_21
       rect:
         serializedVersion: 2
-        x: 29
-        y: 192
-        width: 21
-        height: 48
+        x: 27
+        y: 127
+        width: 32
+        height: 65
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -758,10 +761,10 @@ TextureImporter:
       name: Male Skin1_22
       rect:
         serializedVersion: 2
-        x: 109
-        y: 192
-        width: 21
-        height: 48
+        x: 28
+        y: 191
+        width: 41
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -780,10 +783,10 @@ TextureImporter:
       name: Male Skin1_23
       rect:
         serializedVersion: 2
-        x: 189
-        y: 192
-        width: 21
-        height: 48
+        x: 107
+        y: 127
+        width: 32
+        height: 65
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -802,10 +805,10 @@ TextureImporter:
       name: Male Skin1_24
       rect:
         serializedVersion: 2
-        x: 269
-        y: 192
-        width: 21
-        height: 48
+        x: 108
+        y: 191
+        width: 41
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -824,10 +827,10 @@ TextureImporter:
       name: Male Skin1_25
       rect:
         serializedVersion: 2
-        x: 28
-        y: 128
-        width: 24
-        height: 48
+        x: 187
+        y: 127
+        width: 32
+        height: 65
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -846,10 +849,10 @@ TextureImporter:
       name: Male Skin1_26
       rect:
         serializedVersion: 2
-        x: 108
-        y: 128
-        width: 24
-        height: 48
+        x: 188
+        y: 191
+        width: 41
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -868,10 +871,10 @@ TextureImporter:
       name: Male Skin1_27
       rect:
         serializedVersion: 2
-        x: 188
-        y: 128
-        width: 24
-        height: 48
+        x: 267
+        y: 127
+        width: 32
+        height: 65
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -891,9 +894,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 268
-        y: 128
-        width: 24
-        height: 48
+        y: 191
+        width: 41
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -912,10 +915,10 @@ TextureImporter:
       name: Male Skin1_29
       rect:
         serializedVersion: 2
-        x: 30
-        y: 63
-        width: 19
-        height: 45
+        x: 107
+        y: 62
+        width: 35
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -934,10 +937,10 @@ TextureImporter:
       name: Male Skin1_30
       rect:
         serializedVersion: 2
-        x: 108
-        y: 63
-        width: 26
-        height: 45
+        x: 320
+        y: 62
+        width: 55
+        height: 67
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -956,10 +959,10 @@ TextureImporter:
       name: Male Skin1_31
       rect:
         serializedVersion: 2
-        x: 190
-        y: 63
-        width: 28
-        height: 46
+        x: 423
+        y: 119
+        width: 16
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -978,10 +981,10 @@ TextureImporter:
       name: Male Skin1_32
       rect:
         serializedVersion: 2
-        x: 270
-        y: 63
-        width: 29
-        height: 46
+        x: 26
+        y: 62
+        width: 24
+        height: 49
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1000,10 +1003,10 @@ TextureImporter:
       name: Male Skin1_33
       rect:
         serializedVersion: 2
-        x: 346
-        y: 63
-        width: 23
-        height: 43
+        x: 189
+        y: 62
+        width: 45
+        height: 55
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1022,10 +1025,10 @@ TextureImporter:
       name: Male Skin1_34
       rect:
         serializedVersion: 2
-        x: 430
-        y: 63
-        width: 19
-        height: 45
+        x: 269
+        y: 62
+        width: 48
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1044,10 +1047,10 @@ TextureImporter:
       name: Male Skin1_35
       rect:
         serializedVersion: 2
-        x: 30
-        y: 0
-        width: 19
-        height: 44
+        x: 401
+        y: 62
+        width: 49
+        height: 49
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1066,10 +1069,10 @@ TextureImporter:
       name: Male Skin1_36
       rect:
         serializedVersion: 2
-        x: 108
+        x: 26
         y: 0
-        width: 20
-        height: 42
+        width: 24
+        height: 47
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1088,10 +1091,10 @@ TextureImporter:
       name: Male Skin1_37
       rect:
         serializedVersion: 2
-        x: 184
+        x: 103
         y: 0
-        width: 24
-        height: 37
+        width: 28
+        height: 45
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1110,10 +1113,10 @@ TextureImporter:
       name: Male Skin1_38
       rect:
         serializedVersion: 2
-        x: 264
+        x: 183
         y: 0
-        width: 24
-        height: 36
+        width: 28
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1132,10 +1135,10 @@ TextureImporter:
       name: Male Skin1_39
       rect:
         serializedVersion: 2
-        x: 344
+        x: 263
         y: 0
-        width: 24
-        height: 37
+        width: 27
+        height: 39
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1154,10 +1157,10 @@ TextureImporter:
       name: Male Skin1_40
       rect:
         serializedVersion: 2
-        x: 423
+        x: 343
         y: 0
-        width: 25
-        height: 36
+        width: 26
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1176,10 +1179,10 @@ TextureImporter:
       name: Male Skin1_41
       rect:
         serializedVersion: 2
-        x: 500
+        x: 420
         y: 0
-        width: 28
-        height: 36
+        width: 30
+        height: 39
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1198,10 +1201,10 @@ TextureImporter:
       name: Male Skin1_42
       rect:
         serializedVersion: 2
-        x: 562
+        x: 499
         y: 0
-        width: 48
-        height: 21
+        width: 30
+        height: 39
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1220,10 +1223,10 @@ TextureImporter:
       name: Male Skin1_43
       rect:
         serializedVersion: 2
-        x: 642
+        x: 561
         y: 0
-        width: 48
-        height: 9
+        width: 50
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1242,10 +1245,10 @@ TextureImporter:
       name: Male Skin1_44
       rect:
         serializedVersion: 2
-        x: 722
+        x: 641
         y: 0
-        width: 48
-        height: 10
+        width: 50
+        height: 11
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1256,6 +1259,28 @@ TextureImporter:
       bones: []
       spriteID: 3995851f66e08b2d0800000000000000
       internalID: -3262842094731372141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Male Skin1_45
+      rect:
+        serializedVersion: 2
+        x: 721
+        y: 0
+        width: 50
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 148a89da7afcf7160800000000000000
+      internalID: 7025562262800214081
       vertices: []
       indices: 
       edges: []
