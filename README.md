@@ -1,6 +1,6 @@
 # 림버스 컴퍼니 스타일 전투 프로토타입
 
-[게임 플레이 영상 링크 : https://youtu.be/drp4IxtMa-o]
+
 [플레이 가능한 빌드 링크 : https://drive.google.com/file/d/1m8GG1tiJgOUXNlcfn9-uVUF574MVabnB/view?usp=drive_link]
 
 ## 📝 프로젝트 소개
@@ -18,7 +18,7 @@
 
 ## 🎬 게임 플레이 영상
 
-(1~2분 길이의 유튜브 영상을 여기에 임베드하거나 링크합니다)
+[게임 플레이 영상 링크 : https://youtu.be/drp4IxtMa-o]
 
 ## 💻 개발 환경
 
