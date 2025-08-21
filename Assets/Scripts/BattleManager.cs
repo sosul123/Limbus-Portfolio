@@ -1,10 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.Audio;
-using UnityEngine.TextCore.Text;
 using UnityEngine.UI; // Slider를 사용하기 위해 추가
 
 
