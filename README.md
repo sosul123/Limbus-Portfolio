@@ -35,18 +35,21 @@
 -   **에셋 이름**: FREE - 2D Pixel Art Male and Female Character - Sidescroller
 -   **제작자**: [GamdalfHardcore]
 -   **출처**: [https://gandalfhardcore.itch.io/2d-pixel-art-male-and-female-character]
-
+------
 -   **에셋 이름**: [CoinsPixelArtTipe02]
 -   **제작자**: [Artist2D3D]
 -   **출처**: [[itch.io](https://artist2d3d.itch.io/pixelartcoinspack2dgoldsilverbronzecoinsforgames)]
+------
 
 -   **에셋 이름**: [Fantasy Wooden GUI  Free]
 -   **제작자**: [Black Hammer]
 -   **출처**: [https://assetstore.unity.com/packages/2d/gui/fantasy-wooden-gui-free-103811?srsltid=AfmBOorxq55bip2YsuzVtNx55My5iTG8hGZCHmExz94dDf3rvvWb72WC]
+------
 
 -   **에셋 이름**: [Cartoon FX Remaster]
 -   **제작자**: [Jean Moreno]
 -   **출처**: [https://assetstore.unity.com/packages/vfx/particles/cartoon-fx-remaster-free-109565?locale=ko-KR&gclsrc=aw.ds&gad_source=1&gad_campaignid=22894907450&gbraid=0AAAAADdkVOt0o4tfaTOFG6TK-kEVeTKUN&gclid=Cj0KCQjw5JXFBhCrARIsAL1ckPsQrSt59aHSCm3et-ty4AsKLl1b6fuUssgbyRF5GEgCFyP4djzK8woaAmtLEALw_wcB]
+------
 
 -   **에셋 이름**: [animated pixel-art background]
 -   **제작자**: [feony]
