@@ -134,7 +134,7 @@ public class BattleManager : MonoBehaviour
         playerSkill1.gameObject.SetActive(false); // 스킬 버튼 비활성화
         playerSkill2.gameObject.SetActive(false); // 스킬 버튼 비활성화
         List<SkillData> playerSkills = playerObject.GetComponent<CharacterController>().characterData.Skills; // 플레이어의 스킬 목록 가져오기
-        List<SkillData> enemySkills = playerObject.GetComponent<CharacterController>().characterData.Skills; // 플레이어의 스킬 목록 가져오기
+        List<SkillData> enemySkills = enemyObject.GetComponent<CharacterController>().characterData.Skills; // 플레이어의 스킬 목록 가져오기
 
         // 플레이어 스킬 선택
         selectedPlayerSkill = playerSkills[skillIndex];
@@ -181,40 +181,6 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    void PlayerSanityUpdate( int amount)
-    {
-        CharacterData charData = playerObject.GetComponent<CharacterController>().characterData;
-
-        if ( charData.Sanity + amount> CharacterData.MAX_SANITY)
-        {
-            charData.Sanity = CharacterData.MAX_SANITY; // 최대 정신력 초과 방지
-        }
-        else if (charData.Sanity + amount < -CharacterData.MAX_SANITY)
-        {
-            charData.Sanity = -CharacterData.MAX_SANITY; // 최소 정신력 0으로 제한
-        }
-        else
-        {
-            charData.Sanity += amount; // 정신력 업데이트
-        }
-    }
-
-    void EnemySanityUpdate(int amount)
-    {
-        CharacterData charData = enemyObject.GetComponent<CharacterController>().characterData;
-        if (charData.Sanity + amount > CharacterData.MAX_SANITY)
-        {
-            charData.Sanity = CharacterData.MAX_SANITY; // 최대 정신력 초과 방지
-        }
-        else if (charData.Sanity + amount < -CharacterData.MAX_SANITY)
-        {
-            charData.Sanity = -CharacterData.MAX_SANITY; // 최소 정신력 0으로 제한
-        }
-        else
-        {
-            charData.Sanity += amount; // 정신력 업데이트
-        }
-    }
 
     void Draw()
     {
@@ -224,8 +190,8 @@ public class BattleManager : MonoBehaviour
     // 정신력 증감 함수
     void UpdateSanityUI()
     {
-        playerSanityText.text = "" + playerObject.GetComponent<CharacterController>().characterData.Sanity;
-        enemySanityText.text = "" + enemyObject.GetComponent<CharacterController>().characterData.Sanity;
+        playerSanityText.text = "" + playerObject.GetComponent<CharacterController>().GetCurrentSanity();
+        enemySanityText.text = "" + enemyObject.GetComponent<CharacterController>().GetCurrentSanity();
     }
 
     // 데미지 텍스트를 생성하는 함수
@@ -319,8 +285,8 @@ public class BattleManager : MonoBehaviour
         int finalPlayerPower = 0;
         int finalEnemyPower = 0;
 
-        int playerSanity = playerObject.GetComponent<CharacterController>().characterData.Sanity; // 플레이어 정신력
-        int enemySanity = enemyObject.GetComponent<CharacterController>().characterData.Sanity; // 적 정신력
+        int playerSanity = playerObject.GetComponent<CharacterController>().GetCurrentSanity(); // 플레이어 정신력
+        int enemySanity = enemyObject.GetComponent<CharacterController>().GetCurrentSanity(); // 적 정신력
             
         // ----- 1. 공격 위치로 이동 -----
         playerAnimator.SetBool("isWalking", true); // <<-- 걷기 시작!
@@ -394,11 +360,11 @@ public class BattleManager : MonoBehaviour
 
         // ----- 최종 결과 판정 -----
 
-        if (finalPlayerPower > finalEnemyPower)
+        if (playerCoinCount > enemyCoinCount)
         {
             yield return StartCoroutine(PlayerWinsCoroutine(playerCoinCount));
         }
-        else if (finalPlayerPower < finalEnemyPower)
+        else if (playerCoinCount < enemyCoinCount)
         {
             yield return StartCoroutine(EnemyWinsCoroutine(enemyCoinCount));
         }
@@ -455,9 +421,9 @@ public class BattleManager : MonoBehaviour
     // [수정] PlayerWins를 코루틴으로 변경
     IEnumerator PlayerWinsCoroutine(int remainingCoins)
     {
-        PlayerSanityUpdate(5);
-        EnemySanityUpdate(-5);
-        UpdateSanityUI();
+        playerObject.GetComponent<CharacterController>().changeSanity(5); // 플레이어는 데미지를 받지 않음
+        enemyObject.GetComponent<CharacterController>().changeSanity(-5); // 적은 데미지를 받음
+        UpdateSanityUI(); // 정신력 UI 업데이트
 
         int totalDamage = selectedPlayerSkill.power; // 기본 위력으로 시작
         playerFinalPowerUI.text = totalDamage.ToString();
@@ -473,7 +439,7 @@ public class BattleManager : MonoBehaviour
             playerCoinIcons.Add(newIcon); // 정리를 위해 리스트에 추가
 
             // 코인 토스로 추가 데미지 결정
-            if (PerformCoinToss(playerObject.GetComponent<CharacterController>().characterData.Sanity))
+            if (PerformCoinToss(playerObject.GetComponent<CharacterController>().GetCurrentSanity()))
             {
                 totalDamage += selectedPlayerSkill.coinBonusPower;
                 currentCoinIcon.sprite = headsCoinSprite; // 앞면 이미지
@@ -488,7 +454,7 @@ public class BattleManager : MonoBehaviour
             playerAnimator.SetTrigger("AttackTrigger");
 
             // 여기에 '타격' 이펙트를 적 위치에 생성하는 코드를 추가하면 좋습니다.
-             Instantiate(hitEffectPrefab, enemyObject.transform.position, Quaternion.identity);
+            Instantiate(hitEffectPrefab, enemyObject.transform.position, Quaternion.identity);
 
             // 스킬 속성에 따른 공격 사운드 재생
             if (selectedPlayerSkill.attribute.Equals(SkillAttribute.Slash)) soundManager.PlayOneShot(soundManager.SlashAttackSound);
@@ -516,9 +482,9 @@ public class BattleManager : MonoBehaviour
     // [수정] EnemyWins를 코루틴으로 변경
     IEnumerator EnemyWinsCoroutine(int remainingCoins)
     {
-        PlayerSanityUpdate(-5);
-        EnemySanityUpdate(5);
-        UpdateSanityUI();
+        playerObject.GetComponent<CharacterController>().changeSanity(-5); // 플레이어는 데미지를 받지 않음
+        enemyObject.GetComponent<CharacterController>().changeSanity(5); // 적은 데미지를 받음
+        UpdateSanityUI(); // 정신력 UI 업데이트
 
         int totalDamage = selectedEnemySkill.power;
         enemyFinalPowerUI.text = totalDamage.ToString();
@@ -533,7 +499,7 @@ public class BattleManager : MonoBehaviour
 
             enemyCoinIcons.Add(newIcon); // 정리를 위해 리스트에 추가
 
-            if (PerformCoinToss(enemyObject.GetComponent<CharacterController>().characterData.Sanity))
+            if (PerformCoinToss(enemyObject.GetComponent<CharacterController>().GetCurrentSanity()))
             {
                 totalDamage += selectedEnemySkill.coinBonusPower;
                 currentCoinIcon.sprite = headsCoinSprite; // 앞면 이미지
@@ -552,13 +518,11 @@ public class BattleManager : MonoBehaviour
             else if (selectedEnemySkill.attribute.Equals(SkillAttribute.Pierce)) soundManager.PlayOneShot(soundManager.PierceAttackSound);
             else if (selectedEnemySkill.attribute.Equals(SkillAttribute.Blunt)) soundManager.PlayOneShot(soundManager.BluntAttackSound);
 
-
             enemyFinalPowerUI.text = totalDamage.ToString();
             Debug.Log("플레이어에게 최종 데미지 : " + totalDamage);
-            enemyObject.GetComponent<CharacterController>().TakeDamage(totalDamage); // 플레이어에게 데미지 적용
+            playerObject.GetComponent<CharacterController>().TakeDamage(totalDamage); // 플레이어에게 데미지 적용
             ShowDamageText(totalDamage, playerAttackPosition);
             playerHealthSlider.value = enemyObject.GetComponent<CharacterController>().GetCurrentHealth();
-
 
             yield return new WaitForSeconds(attackAnimationDuration);
         }

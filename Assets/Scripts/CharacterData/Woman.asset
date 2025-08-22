@@ -16,11 +16,10 @@ MonoBehaviour:
   maxHealth: 200
   maxSpeed: 10
   minSpeed: 6
-  sanity: 10
   characterSprite: {fileID: 0}
   skills:
   - skillName: "\uAC15\uD558\uAC8C \uB54C\uB9AC\uAE30"
-    power: 3
+    power: 5
     coinBonusPower: 5
     coinCount: 2
     attribute: 2

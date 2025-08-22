@@ -11,7 +11,6 @@ public class CharacterData : ScriptableObject
     [SerializeField] private int maxHealth;
     [SerializeField] private int maxSpeed;
     [SerializeField] private int minSpeed;
-    [SerializeField] private int sanity;
 
     [SerializeField] private Sprite characterSprite;
     [SerializeField] private List <SkillData> skills; // 스킬 데이터 리스트
@@ -21,7 +20,6 @@ public class CharacterData : ScriptableObject
     public int MaxHealth { get { return maxHealth; } }
     public int MaxSpeed { get { return maxSpeed; } }    
     public int MinSpeed { get { return minSpeed; } }    
-    public int Sanity { get { return sanity; } set { sanity = value; } }    
     public Sprite CharacterSprite { get { return characterSprite; } }   
     public List<SkillData> Skills { get { return skills; } } // 스킬 데이터 리스트 반환
     public AudioClip HitSound { get { return hitSound; } } // 피격 사운드 반환 
