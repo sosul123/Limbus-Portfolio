@@ -48,4 +48,9 @@
 -   **제작자**: [Jean Moreno]
 -   **출처**: [https://assetstore.unity.com/packages/vfx/particles/cartoon-fx-remaster-free-109565?locale=ko-KR&gclsrc=aw.ds&gad_source=1&gad_campaignid=22894907450&gbraid=0AAAAADdkVOt0o4tfaTOFG6TK-kEVeTKUN&gclid=Cj0KCQjw5JXFBhCrARIsAL1ckPsQrSt59aHSCm3et-ty4AsKLl1b6fuUssgbyRF5GEgCFyP4djzK8woaAmtLEALw_wcB]
 
+-   **에셋 이름**: [animated pixel-art background]
+-   **제작자**: [feony]
+-   **출처**: [https://assetstore.unity.com/packages/2d/environments/animated-pixel-art-backgrounds-free-255208]
+
+
 
