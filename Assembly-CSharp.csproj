@@ -65,6 +65,9 @@
     <Compile Include="Assets\Scripts\BattleManager.cs" />
     <Compile Include="Assets\Scripts\TitleScreenManager.cs" />
     <Compile Include="Assets\Scripts\SkillData.cs" />
+    <Compile Include="Assets\Scripts\CharacterData.cs" />
+    <Compile Include="Assets\Scripts\SoundManager.cs" />
+    <Compile Include="Assets\Scripts\CharacterController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Sprites\GamdalfHardcore\GandalfHardcFREE NPC\Links.txt" />

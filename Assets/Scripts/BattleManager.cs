@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI; // Slider를 사용하기 위해 추가
 
 
 public class BattleManager : MonoBehaviour
 {
+    [Header("Character")]
 
     // 캐릭터와 적 프리팹을 유니티 에디터에서 연결할 변수
     public GameObject playerPrefab;
@@ -15,11 +17,11 @@ public class BattleManager : MonoBehaviour
     public Slider playerHealthSlider; // 플레이어 체력 바
     public Slider enemyHealthSlider;  // 적 체력 바
 
-    private int playerHealth = 100; // 플레이어 체력
-    private int enemyHealth = 100;  // 적 체력
-    private int maxHealth = 100;    // 최대 체력
-    public float moveSpeed = 5f; // 이동 속도
+    const int MAX_COIN_TOSS_COUNT = 100; // 최대 코인 토스 횟수
+    private float moveSpeed = 10f; // 이동 속도
 
+    public Transform playerSpawnPoint;
+    public Transform enemySpawnPoint;
     public Transform playerAttackPosition; // 플레이어가 공격할 때 이동할 위치
     public Transform enemyAttackPosition;  // 적이 공격할 때 이동할 위치
 
@@ -36,59 +38,38 @@ public class BattleManager : MonoBehaviour
     public GameObject hitEffectPrefab;
     public GameObject clashEffectPrefab; // 충돌 이펙트 프리팹
     public Transform clashPosition;      // 이펙트가 생성될 위치
+    public SoundManager soundManager;
 
-    // 캐릭터와 적이 생성될 위치를 지정할 변수
-    public Transform playerSpawnPoint;
-    public Transform enemySpawnPoint;
 
+    [Header("Skill")]
     public GameObject playerSkillPerfab;
     private Button playerSkill1;
     private Button playerSkill2;
     public Transform playerSkillPosition1;
     public Transform playerSkillPosition2;
 
-    public List<SkillData> playerSkills; // 플레이어의 스킬 목록
-    public List<SkillData> enemySkills;  // 적의 스킬 목록
-
     private SkillData selectedPlayerSkill; // 플레이어가 선택한 스킬
     private SkillData selectedEnemySkill;  // 적이 선택한 스킬
 
+
+    [Header("Text UI")]
     public TextMeshProUGUI playerSanityText;
     public TextMeshProUGUI enemySanityText;
-    private int playerSanity = 0; // 플레이어의 정신력
-    private int enemySanity = 0;  // 적의 정신력
-
-
     public GameObject damageTextPrefab; // 데미지 텍스트 프리팹
     public Transform playerCanvasPosition; // 플레이어 데미지 텍스트가 생성될 위치
     public Transform enemyCanvasPosition;  // 적 데미지 텍스트가 생성될 위치
     public Canvas mainCanvas;
     public TextMeshProUGUI playerSkillNamePower;
     public TextMeshProUGUI enemySkillNamePower;
-
-    private AudioSource audioSource;
-    public AudioClip SlashAttackSound; // 참격 사운드
-    public AudioClip BluntAttackSound; // 타격 사운드
-    public AudioClip PierceAttackSound; // 관통 사운드
-    public AudioClip ManHitSound; // 피격 사운드
-    public AudioClip WomanHitSound; //피격 사운드
-    public AudioClip ClashSound; // 충돌 사운드
-    public AudioClip CoinTossSound; // 코인 토스 사운드
+    public TextMeshProUGUI playerFinalPowerUI;
+    public TextMeshProUGUI enemyFinalPowerUI;
 
     // static 변수
-    static private int MAX_COIN_TOSS_COUNT = 100; // 최대 코인 토스 횟수
-    static private int MAX_SANITY = 45; // 최대 정신력
 
-
-    public GameObject resultPanel; // 결과를 표시할 UI 패널
-    public TextMeshProUGUI resultText; // 결과 텍스트
-
+    [Header("Multi-Coin UI")] // 인스펙터에서 보기 좋게 그룹화
     public Animator coinAnimator; // 코인 애니메이터를 연결할 변수
     public Image coinImage; // 코인 애니메이션 UI의 Image 컴포넌트
     public Sprite lostCoinSprite; // '합' 패배 시 보여줄 스프라이트
-
-
-    [Header("Multi-Coin UI")] // 인스펙터에서 보기 좋게 그룹화
     public GameObject coinIconPrefab; // 코인 아이콘 프리팹
     public Transform playerCoinContainer; // 코인 아이콘들이 생성될 부모 (Horizontal Layout Group)
     public Transform enemyCoinContainer; // 코인 아이콘들이 생성될 부모 (Horizontal Layout Group)
@@ -100,23 +81,27 @@ public class BattleManager : MonoBehaviour
 
     private int lastTossResultPower;
 
+    public GameObject resultPanel; // 결과를 표시할 UI 패널
+    public TextMeshProUGUI resultText; // 결과 텍스트
+
 
     void Start()
     {
-
         playerObject = Instantiate(playerPrefab, playerSpawnPoint.position, Quaternion.identity);
+        playerObject.GetComponent<CharacterController>().SetsoundManaer(soundManager.gameObject); // 사운드 매니저 설정
         playerAnimator = playerObject.GetComponentInChildren<Animator>();
         playerOriginalPosition = playerObject.transform.position; // 원래 위치 저장
 
         enemyObject = Instantiate(enemyPrefab, enemySpawnPoint.position, Quaternion.identity);
+        enemyObject.GetComponent<CharacterController>().SetsoundManaer(soundManager.gameObject); // 사운드 매니저 설정
         enemyAnimator = enemyObject.GetComponentInChildren<Animator>();
         enemyOriginalPosition = enemyObject.transform.position; // 원래 위치 저장 
 
         // 체력 바 초기 설정
-        playerHealthSlider.maxValue = maxHealth;
-        playerHealthSlider.value = playerHealth;
-        enemyHealthSlider.maxValue = maxHealth;
-        enemyHealthSlider.value = enemyHealth;
+        playerHealthSlider.maxValue = playerObject.GetComponent<CharacterController>().characterData.MaxHealth;
+        playerHealthSlider.value = playerObject.GetComponent<CharacterController>().GetCurrentHealth();
+        enemyHealthSlider.maxValue = enemyObject.GetComponent<CharacterController>().characterData.MaxHealth;
+        enemyHealthSlider.value = enemyObject.GetComponent<CharacterController>().GetCurrentHealth();
 
         GameObject newButton = Instantiate(playerSkillPerfab, playerSkillPosition1.position, Quaternion.identity, mainCanvas.transform);
         playerSkill1 = newButton.GetComponent<Button>();
@@ -124,17 +109,14 @@ public class BattleManager : MonoBehaviour
         newButton = Instantiate(playerSkillPerfab, playerSkillPosition2.position, Quaternion.identity, mainCanvas.transform);
         playerSkill2 = newButton.GetComponent<Button>();
         UpdateSkillButton(playerSkill2, 2);
-
-
-        // 이 스크립트가 붙어있는 게임 오브젝트의 AudioSource 컴포넌트를 가져옴
-        audioSource = GetComponent<AudioSource>();
-        audioSource.volume = 0.5f; // 볼륨 설정 (0.0f ~ 1.0f)
-
         Debug.Log("전투 시작!");
     }
+
     //해당 버튼 랜덤 스킬의 내용으로 업데이트
     public void UpdateSkillButton( Button skillButton, int position)
     {
+        List < SkillData > playerSkills =  playerObject.GetComponent<CharacterController>().characterData.Skills; // 플레이어의 스킬 목록 가져오기
+
         int skillIndex = Random.Range(0, playerSkills.Count); // 플레이어 스킬 목록에서 랜덤 인덱스 선택
         if (skillIndex < playerSkills.Count)
         {
@@ -151,6 +133,8 @@ public class BattleManager : MonoBehaviour
     {
         playerSkill1.gameObject.SetActive(false); // 스킬 버튼 비활성화
         playerSkill2.gameObject.SetActive(false); // 스킬 버튼 비활성화
+        List<SkillData> playerSkills = playerObject.GetComponent<CharacterController>().characterData.Skills; // 플레이어의 스킬 목록 가져오기
+        List<SkillData> enemySkills = playerObject.GetComponent<CharacterController>().characterData.Skills; // 플레이어의 스킬 목록 가져오기
 
         // 플레이어 스킬 선택
         selectedPlayerSkill = playerSkills[skillIndex];
@@ -195,37 +179,40 @@ public class BattleManager : MonoBehaviour
             Debug.Log("코인: 뒷면!");
             return false; // 뒷면 (실패)
         }
-
     }
 
     void PlayerSanityUpdate( int amount)
     {
-        if(playerSanity + amount> MAX_SANITY)
+        CharacterData charData = playerObject.GetComponent<CharacterController>().characterData;
+
+        if ( charData.Sanity + amount> CharacterData.MAX_SANITY)
         {
-            playerSanity = MAX_SANITY; // 최대 정신력 초과 방지
+            charData.Sanity = CharacterData.MAX_SANITY; // 최대 정신력 초과 방지
         }
-        else if (playerSanity + amount < -MAX_SANITY)
+        else if (charData.Sanity + amount < -CharacterData.MAX_SANITY)
         {
-            playerSanity = -MAX_SANITY; // 최소 정신력 0으로 제한
+            charData.Sanity = -CharacterData.MAX_SANITY; // 최소 정신력 0으로 제한
         }
         else
         {
-            playerSanity += amount; // 정신력 업데이트
+            charData.Sanity += amount; // 정신력 업데이트
         }
     }
+
     void EnemySanityUpdate(int amount)
     {
-        if (enemySanity + amount > MAX_SANITY)
+        CharacterData charData = enemyObject.GetComponent<CharacterController>().characterData;
+        if (charData.Sanity + amount > CharacterData.MAX_SANITY)
         {
-            enemySanity = MAX_SANITY; // 최대 정신력 초과 방지
+            charData.Sanity = CharacterData.MAX_SANITY; // 최대 정신력 초과 방지
         }
-        else if (enemySanity + amount < -MAX_SANITY)
+        else if (charData.Sanity + amount < -CharacterData.MAX_SANITY)
         {
-            enemySanity = -MAX_SANITY; // 최소 정신력 0으로 제한
+            charData.Sanity = -CharacterData.MAX_SANITY; // 최소 정신력 0으로 제한
         }
         else
         {
-            enemySanity += amount; // 정신력 업데이트
+            charData.Sanity += amount; // 정신력 업데이트
         }
     }
 
@@ -237,8 +224,8 @@ public class BattleManager : MonoBehaviour
     // 정신력 증감 함수
     void UpdateSanityUI()
     {
-        playerSanityText.text = "" + playerSanity;
-        enemySanityText.text = "" + enemySanity;
+        playerSanityText.text = "" + playerObject.GetComponent<CharacterController>().characterData.Sanity;
+        enemySanityText.text = "" + enemyObject.GetComponent<CharacterController>().characterData.Sanity;
     }
 
     // 데미지 텍스트를 생성하는 함수
@@ -246,13 +233,15 @@ public class BattleManager : MonoBehaviour
     {
         GameObject textInstance = Instantiate(damageTextPrefab, position.position, Quaternion.identity, mainCanvas.transform); // BattleManager의 자식으로 생성
         textInstance.GetComponent<TextMeshProUGUI>().text = damage.ToString();
+        textInstance.GetComponent<TextMeshProUGUI>().fontSize = 30;
+
         // 간단한 애니메이션을 위해 Destroy를 지연시킴
         Destroy(textInstance, 1f); // 1초 뒤에 사라짐
     }
 
     void CheckForGameEnd()
     {
-        if (playerHealth <= 0)
+        if (playerObject.GetComponent<CharacterController>().GetCurrentHealth() <= 0)
         {
             // 플레이어 패배
             resultPanel.SetActive(true);
@@ -261,7 +250,7 @@ public class BattleManager : MonoBehaviour
             resultPanel.transform.SetAsLastSibling();
             Time.timeScale = 0f; // 게임 일시 정지
         }
-        else if (enemyHealth <= 0)
+        else if (enemyObject.GetComponent<CharacterController>().GetCurrentHealth() <= 0)
         {
             // 플레이어 승리
             resultPanel.SetActive(true);
@@ -273,15 +262,13 @@ public class BattleManager : MonoBehaviour
     }
 
     //  코인 토스 연출을 위한 코루틴
-    IEnumerator TossCoinsCoroutine(SkillData skill, int coinCount, int sanity, Transform container, List<GameObject> iconList)
+    IEnumerator TossCoinsCoroutine(bool isPlayer, SkillData skill, int coinCount, int sanity, Transform container, List<GameObject> iconList)
     {
         // 1. 스킬에 맞춰 코인 UI 생성
         UpdateCoinUI(skill, container, iconList, coinCount);
-
         // 2. 최종 위력 계산 및 각 코인 연출
         int finalPower = skill.power;
         Debug.Log($"'{skill.skillName}' 시작! 기본 위력: {finalPower}");
-
         for (int i = 0; i < coinCount; i++)
         {
             GameObject currentCoinIcon = iconList[i];
@@ -291,8 +278,8 @@ public class BattleManager : MonoBehaviour
             currentCoinIcon.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
             yield return new WaitForSeconds(0.1f);
             currentCoinIcon.transform.localScale = Vector3.one;
-            audioSource.PlayOneShot(CoinTossSound); // 코인 토스 사운드 재생
-            // 코인 토스 실행 및 결과 적용
+            soundManager.PlayOneShot(soundManager.CoinTossSound); // 코인 토스 사운드 재생
+                                                                    // 코인 토스 실행 및 결과 적용
             bool isHeads = PerformCoinToss(sanity);
             if (isHeads)
             {
@@ -304,6 +291,15 @@ public class BattleManager : MonoBehaviour
             {
                 coinImage.sprite = tailsCoinSprite;
                 Debug.Log($"코인 {i + 1}: 뒷면! 위력 변화 없음.");
+            }
+
+            if (isPlayer)
+            {
+                playerFinalPowerUI.text = finalPower.ToString();
+            }
+            else
+            {
+                enemyFinalPowerUI.text = finalPower.ToString();
             }
         }
 
@@ -323,7 +319,9 @@ public class BattleManager : MonoBehaviour
         int finalPlayerPower = 0;
         int finalEnemyPower = 0;
 
-
+        int playerSanity = playerObject.GetComponent<CharacterController>().characterData.Sanity; // 플레이어 정신력
+        int enemySanity = enemyObject.GetComponent<CharacterController>().characterData.Sanity; // 적 정신력
+            
         // ----- 1. 공격 위치로 이동 -----
         playerAnimator.SetBool("isWalking", true); // <<-- 걷기 시작!
         while (Vector3.Distance(playerObject.transform.position, playerAttackPosition.position) > 0.1f)
@@ -346,13 +344,14 @@ public class BattleManager : MonoBehaviour
         while (playerCoinCount > 0 && enemyCoinCount > 0 && coinTossCount < MAX_COIN_TOSS_COUNT)
         {
             // ----- 플레이어 턴 -----
-            yield return StartCoroutine(TossCoinsCoroutine(selectedPlayerSkill, playerCoinCount,playerSanity,playerCoinContainer, playerCoinIcons));
+            yield return StartCoroutine(TossCoinsCoroutine(true ,selectedPlayerSkill, playerCoinCount,playerSanity,playerCoinContainer, playerCoinIcons));
             finalPlayerPower = lastTossResultPower;
+            playerFinalPowerUI.text = "" + finalPlayerPower;
 
             // ----- 적 턴 -----
-            yield return StartCoroutine(TossCoinsCoroutine(selectedEnemySkill, enemyCoinCount, enemySanity, enemyCoinContainer, enemyCoinIcons));
+            yield return StartCoroutine(TossCoinsCoroutine(false, selectedEnemySkill, enemyCoinCount, enemySanity, enemyCoinContainer, enemyCoinIcons));
             finalEnemyPower = lastTossResultPower;
-
+            enemyFinalPowerUI.text ="" + finalEnemyPower; 
             // 공격 애니메이션 실행
             playerAnimator.SetTrigger("AttackTrigger");
             enemyAnimator.SetTrigger("AttackTrigger");
@@ -366,7 +365,7 @@ public class BattleManager : MonoBehaviour
 
                 // 무작위 회전값으로 이펙트 생성
                 Instantiate(clashEffectPrefab, clashPosition.position, randomRotation);
-                audioSource.PlayOneShot(ClashSound); // 충돌 사운드 재생
+                soundManager.PlayOneShot(soundManager.ClashSound); // 충돌 사운드 재생
 
             }
 
@@ -387,8 +386,8 @@ public class BattleManager : MonoBehaviour
             }
 
             ClearAllCoinIcons();
-            yield return new WaitForSeconds(0.5f);
-
+            playerFinalPowerUI.text = "";
+            enemyFinalPowerUI.text = "";
 
         }
 
@@ -409,8 +408,6 @@ public class BattleManager : MonoBehaviour
         }
         playerSkillNamePower.text = ""; // 스킬 이름과 위력 텍스트 초기화
         enemySkillNamePower.text = ""; // 스킬 이름과 위력 텍스트 초기화 
-        playerSkill1.gameObject.SetActive(true); // 스킬 버튼 다시 활성화
-        playerSkill2.gameObject.SetActive(true); // 스킬 버튼 다시 활성화
 
         // ----- 3. 원래 위치로 복귀 -----
         playerAnimator.SetBool("isWalking", true); // <<-- 걷기 시작!
@@ -429,6 +426,9 @@ public class BattleManager : MonoBehaviour
         }
         enemyObject.transform.position = enemyOriginalPosition; // 정확한 위치 보정
         enemyAnimator.SetBool("isWalking", false); // 적 걷기 멈춤!
+
+        playerSkill1.gameObject.SetActive(true); // 스킬 버튼 다시 활성화
+        playerSkill2.gameObject.SetActive(true); // 스킬 버튼 다시 활성화
 
     }
 
@@ -460,7 +460,7 @@ public class BattleManager : MonoBehaviour
         UpdateSanityUI();
 
         int totalDamage = selectedPlayerSkill.power; // 기본 위력으로 시작
-
+        playerFinalPowerUI.text = totalDamage.ToString();
         // 1. 남은 코인 수만큼 공격 연출 반복
         for (int i = 0; i < remainingCoins; i++)
         {
@@ -473,7 +473,7 @@ public class BattleManager : MonoBehaviour
             playerCoinIcons.Add(newIcon); // 정리를 위해 리스트에 추가
 
             // 코인 토스로 추가 데미지 결정
-            if (PerformCoinToss(playerSanity))
+            if (PerformCoinToss(playerObject.GetComponent<CharacterController>().characterData.Sanity))
             {
                 totalDamage += selectedPlayerSkill.coinBonusPower;
                 currentCoinIcon.sprite = headsCoinSprite; // 앞면 이미지
@@ -484,31 +484,33 @@ public class BattleManager : MonoBehaviour
             }
 
 
-                // 공격 애니메이션 실행
-                playerAnimator.SetTrigger("AttackTrigger");
+            // 공격 애니메이션 실행
+            playerAnimator.SetTrigger("AttackTrigger");
 
             // 여기에 '타격' 이펙트를 적 위치에 생성하는 코드를 추가하면 좋습니다.
              Instantiate(hitEffectPrefab, enemyObject.transform.position, Quaternion.identity);
 
             // 스킬 속성에 따른 공격 사운드 재생
-            if (selectedPlayerSkill.attribute.Equals(SkillAttribute.Slash)) audioSource.PlayOneShot(SlashAttackSound);
-            else if (selectedPlayerSkill.attribute.Equals(SkillAttribute.Pierce)) audioSource.PlayOneShot(PierceAttackSound);
-            else if (selectedPlayerSkill.attribute.Equals(SkillAttribute.Blunt)) audioSource.PlayOneShot(BluntAttackSound);
+            if (selectedPlayerSkill.attribute.Equals(SkillAttribute.Slash)) soundManager.PlayOneShot(soundManager.SlashAttackSound);
+            else if (selectedPlayerSkill.attribute.Equals(SkillAttribute.Pierce)) soundManager.PlayOneShot(soundManager.PierceAttackSound);
+            else if (selectedPlayerSkill.attribute.Equals(SkillAttribute.Blunt)) soundManager.PlayOneShot(soundManager.BluntAttackSound);
+
+            playerFinalPowerUI.text = totalDamage.ToString();
+            enemyObject.GetComponent<CharacterController>().TakeDamage(totalDamage); // 적에게 데미지 적용
+            ShowDamageText(totalDamage, enemyAttackPosition);
+            enemyHealthSlider.value = enemyObject.GetComponent<CharacterController>().GetCurrentHealth();
 
 
             // 애니메이션이 재생될 시간만큼 잠시 대기
             yield return new WaitForSeconds(attackAnimationDuration);
         }
 
-        // 2. 최종 데미지 적용 및 피격 사운드
-        audioSource.PlayOneShot(WomanHitSound);
+        // 2. 최종 데미지 적용
         Debug.Log("적에게 최종 데미지 : " + totalDamage);
-        enemyHealth -= totalDamage;
-        ShowDamageText(totalDamage, enemyCanvasPosition);
-        enemyHealthSlider.value = enemyHealth;
         ClearAllCoinIcons();
         CheckForGameEnd();
 
+        playerFinalPowerUI.text = "";
     }
 
     // [수정] EnemyWins를 코루틴으로 변경
@@ -519,6 +521,7 @@ public class BattleManager : MonoBehaviour
         UpdateSanityUI();
 
         int totalDamage = selectedEnemySkill.power;
+        enemyFinalPowerUI.text = totalDamage.ToString();
 
         for (int i = 0; i < remainingCoins; i++)
         {
@@ -530,7 +533,7 @@ public class BattleManager : MonoBehaviour
 
             enemyCoinIcons.Add(newIcon); // 정리를 위해 리스트에 추가
 
-            if (PerformCoinToss(enemySanity))
+            if (PerformCoinToss(enemyObject.GetComponent<CharacterController>().characterData.Sanity))
             {
                 totalDamage += selectedEnemySkill.coinBonusPower;
                 currentCoinIcon.sprite = headsCoinSprite; // 앞면 이미지
@@ -545,19 +548,22 @@ public class BattleManager : MonoBehaviour
 
             Instantiate(hitEffectPrefab, playerObject.transform.position, Quaternion.identity);
 
-            if (selectedEnemySkill.attribute.Equals(SkillAttribute.Slash)) audioSource.PlayOneShot(SlashAttackSound);
-            else if (selectedEnemySkill.attribute.Equals(SkillAttribute.Pierce)) audioSource.PlayOneShot(PierceAttackSound);
-            else if (selectedEnemySkill.attribute.Equals(SkillAttribute.Blunt)) audioSource.PlayOneShot(BluntAttackSound);
+            if (selectedEnemySkill.attribute.Equals(SkillAttribute.Slash)) soundManager.PlayOneShot(soundManager.SlashAttackSound);
+            else if (selectedEnemySkill.attribute.Equals(SkillAttribute.Pierce)) soundManager.PlayOneShot(soundManager.PierceAttackSound);
+            else if (selectedEnemySkill.attribute.Equals(SkillAttribute.Blunt)) soundManager.PlayOneShot(soundManager.BluntAttackSound);
+
+
+            enemyFinalPowerUI.text = totalDamage.ToString();
+            Debug.Log("플레이어에게 최종 데미지 : " + totalDamage);
+            enemyObject.GetComponent<CharacterController>().TakeDamage(totalDamage); // 플레이어에게 데미지 적용
+            ShowDamageText(totalDamage, playerAttackPosition);
+            playerHealthSlider.value = enemyObject.GetComponent<CharacterController>().GetCurrentHealth();
 
 
             yield return new WaitForSeconds(attackAnimationDuration);
         }
 
-        audioSource.PlayOneShot(ManHitSound);
-        Debug.Log("플레이어에게 최종 데미지 : " + totalDamage);
-        playerHealth -= totalDamage;
-        ShowDamageText(totalDamage, playerCanvasPosition);
-        playerHealthSlider.value = playerHealth;
+        enemyFinalPowerUI.text = "";
         ClearAllCoinIcons();
         CheckForGameEnd();
     }

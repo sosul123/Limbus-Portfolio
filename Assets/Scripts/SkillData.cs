@@ -15,4 +15,5 @@ public class SkillData
     public int coinBonusPower; // 코인 보너스 위력
     public int coinCount; // 코인 개수
     public SkillAttribute attribute;
+
 }
